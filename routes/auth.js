@@ -16,7 +16,8 @@ const schemaLogin = Joi.object({
     password: Joi.string().min(6).required()
 })
 
-const schemaUpdate = Joi.object({
+const schemaUpdateuser = Joi.object({
+    id: Joi.string().max(1024).required(),
     name: Joi.string().min(6).max(255).required(),
     lastname: Joi.string().max(255).required(),
     email: Joi.string().max(1024).required(),
@@ -132,7 +133,7 @@ router.post('/eraseuser', async (req, res) => {
 
 router.post('/updateuser',async(req, res) => {
     //Validación de usuario
-    const {error} = schemaRegister.validate(req.body)
+    const {error} = schemaUpdateuser.validate(req.body)
     if (error){
         return res.status(400).json({
             error: error.details(0).message
